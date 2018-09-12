@@ -1,0 +1,16 @@
+<h2><%= @current_question %></h2>
+<br>
+
+
+<form method=post action=/users/<%= current_user.id %>/question/<%= @question_id%>/edit>
+    <input type=text placeholder="Change Your Question Here" name="edit"><br>
+    <input type=submit value="Edit">
+</form>
+
+<form method=post action= /users/<%= current_user.id %>/question/<%= @question_id%>/delete>
+   <input type=submit value="Delete" name= "deleteconfirm">
+</form>
+
+
+
+

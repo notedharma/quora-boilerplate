@@ -1,0 +1,12 @@
+<h1><%= "Hi #{current_user.name}!" %></h1>
+<br>
+<p>Name: <%= current_user.name%></p>
+<p>email: <%= current_user.email%></p>
+
+<h3>Your Questions:</h3>
+
+<% @current_list.each_with_index do |question, index| %>
+	<a href="/users/<%= current_user.id %>/question/<%= question.id %>"><%= "#{index+1}. #{question.question}" %></a><br>
+<% end %>
+
+<h3>Your Answers:</h3>

@@ -1,4 +1,9 @@
 <h2>Login</h2>
+
+<h3><%= @login_fail_msg %></h3>
+<h3><%= @logout_msg %></h3>
+
+
 <form method=post action=/login>
     <input type=text placeholder="Email" name="user[email]"><br>
     <input type=password placeholder="Password" name="user[password]"></br>

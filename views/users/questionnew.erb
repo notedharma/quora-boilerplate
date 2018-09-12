@@ -1,0 +1,6 @@
+<h1><%= "Hi #{current_user.name}, what would you like to ask?" %></h1>
+<br>
+<form method=post action=/questionnew>
+    <input type=text placeholder="Type your question here..." name="questiontext"><br>
+    <input type=submit value="Submit">
+</form>

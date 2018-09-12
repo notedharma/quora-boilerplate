@@ -6,9 +6,22 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
-    <link rel="stylesheet" type="text/css" href="css/application.css">
+    <link rel="stylesheet" type="text/css" href="/css/application.css">
   </head>
   <body>
+    <a href="/">Home</a>
+    
+    <% if logged_in? %>
+      <p>Welcome <%= current_user.name %></p>
+      <a href="/logout">Log out</a>
+      <a href="/users/<%= current_user.id %>">My profile</a>
+      <a href="/users/<%= current_user.id %>/question">Ask a Question</a>
+      <a href="/users/<%= current_user.id %>/allquestions">View All</a>
+    <% else %>
+      <a href="/signup">Sign up</a>
+      <a href="/login">Log in</a>
+    <% end %>
+
 
     <%= yield %>
 
