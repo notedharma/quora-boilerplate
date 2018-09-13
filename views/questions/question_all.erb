@@ -2,7 +2,7 @@
 <br>
 
 <% @list_all.each_with_index do |question, index| %>
-	<p><%= "#{index+1}. #{question.question}" %>   <a href="/users/<%= current_user.id %>/question/<%= question.id %>">Answer</a></p>
+	<p><%= "#{index+1}. #{question.question}" %>   <a href="/users/<%= current_user.id %>/question/<%= question.id %>/answer">Answer</a></p>
 <% end %>
 
 

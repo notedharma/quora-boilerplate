@@ -1,0 +1,18 @@
+<h2><%= @current_question %></h2>
+
+<% @all_answers.each_with_index do |answer, index| %>
+		<p><%= "#{answer.user.name} wrote: #{answer.answer}" %></p>
+<% end %>
+
+
+
+<br>
+<form method=post action=/users/<%= current_user.id %>/question/<%= @question_id%>/answer/new>
+    <input type=text placeholder="Type Your Answer Here" name="answertext"><br>
+    <input type=submit value="Submit Answer">
+</form>
+
+
+
+
+

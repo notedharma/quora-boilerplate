@@ -1,0 +1,17 @@
+<h4><%= @current_question %></h4>
+<h2>Your Answer: <%= @current_answer %></h2>
+
+
+
+<form method=post action=/users/<%= current_user.id %>/answer/<%= @answer_id%>/edit>
+    <input type=text placeholder="Change Your Answer Here" name="edit"><br>
+    <input type=submit value="Submit Change">
+</form>
+
+<form method=post action= /users/<%= current_user.id %>/answer/<%= @answer_id%>/delete>
+   <input type=submit value="Delete" name= "deleteconfirm">
+</form>
+
+
+
+

@@ -5,8 +5,13 @@
 
 <h3>Your Questions:</h3>
 
-<% @current_list.each_with_index do |question, index| %>
+<% @current_question_list.each_with_index do |question, index| %>
 	<a href="/users/<%= current_user.id %>/question/<%= question.id %>"><%= "#{index+1}. #{question.question}" %></a><br>
 <% end %>
 
 <h3>Your Answers:</h3>
+<% @current_answer_list.each_with_index do |answer, index| %>
+	<%="#{index+1}. #{answer.question.question}"%>
+	<a href="/users/<%= current_user.id %>/question/<%= answer.question_id %>/answer/<%= answer.id %>"><%= " #{  answer.answer}" %></a><br>
+
+<% end %>

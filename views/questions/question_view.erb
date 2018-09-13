@@ -1,6 +1,11 @@
 <h2><%= @current_question %></h2>
 <br>
 
+<% @all_answers.each_with_index do |answer, index| %>
+		<p><%= "#{answer.user.name} wrote: #{answer.answer}" %></p>
+<% end %>
+
+
 
 <form method=post action=/users/<%= current_user.id %>/question/<%= @question_id%>/edit>
     <input type=text placeholder="Change Your Question Here" name="edit"><br>

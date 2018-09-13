@@ -1,6 +1,13 @@
 class Question < ActiveRecord::Base
 	belongs_to :user
 	has_many :answers
+	has_many :votes
+
+# example of activerecord calls over many tables
+	# a = Question.find(1)
+	# a.answers.first
+	# answers = Answer.find(10)
+	# answers.question.question
 
 
 	def self.add_question(question_text, user_id)

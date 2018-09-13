@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
 	validates :password, length: { in: 3..20}
 	has_many :questions
 	has_many :answers
+	has_many :votes
 	
 	def self.add_user(name, email, password)
 		user = User.new(name: name, email: email, password: password)

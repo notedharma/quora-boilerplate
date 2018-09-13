@@ -1,40 +1,35 @@
 class Answer < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :question
+	has_many :votes
 
 
-	def self.add_answer(answer_text, user_id)
-		answer = Question.new(question: question_text, user_id: user_id)
+	def self.add_answer(answer_text, user_id, question_id)
+		answer = Answer.new(answer: answer_text, user_id: user_id, question_id: question_id)
 		answer.save
+		p answer
 	end
 
-	# def self.list_questions(user_id)
-	# 	list = Hash.new
-		
-	# 	q = Question.where(user_id: user_id)
 
-	# 	q.each_with_index {|x , index|
-	# 		list[index+1] = "#{index+1}. #{x.question}"
-	# 		list["#{index+1}id"] = x.id
-	# 	}
-	# 	return list
-	# end
+	def self.current_answer(answer_id)
+		q =Answer.find_by_id(answer_id.to_i)
+		q.answer
+	end
 
-	# def self.current_question(question_id)
-	# 	q =Question.find_by_id(question_id.to_i)
-	# 	q.question
-	# end
+	def self.delete_current_answer(answer_id)
+		q = Answer.all.find_by_id(answer_id)
+		q.delete
+	end
 
-	# def self.delete_current_question(question_id)
-	# 	q = Question.all.find_by_id(question_id)
-	# 	q.delete
-	# end
+	def self.edit_current_answer(answer_id, answer_text)
+		q = Answer.all.find_by_id(answer_id)
+		q.update(answer: answer_text)
+	end
 
-	# def self.edit_current_question(question_id, question_text)
-	# 	q = Question.all.find_by_id(question_id)
-	# 	q.update(question: question_text)
-	# end
-
+	def self.all_answer_to_question(answer_id, answer_text)
+		q = Answer.all.find_by_id(question_id)
+		q.update(answer: answer_text)
+	end
 
 
 end
