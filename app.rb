@@ -57,7 +57,7 @@ end
 
 
 
-# QUESTIONS-----------------------------------------------------------
+# QUESTIONS ----------- QUESTIONS -----------QUESTIONS-----------QUESTIONS-----------QUESTIONS
 
 get '/users/:id/question' do
 	if current_user.id.to_s == params[:id]
@@ -111,7 +111,7 @@ end
 
 get '/users/:id/allquestions' do
 	if current_user.id.to_s == params[:id]
-		@list_all = Question.all.order(:updated_at).reverse_order
+		@list_all = Question.includes(:answers).all.order(:updated_at).reverse_order
 		erb :"questions/question_all"
 	else
 		p "Something went wrong users/:id/question"
@@ -121,13 +121,16 @@ end
 
 
 
-# ANSWERS------------------------------------------------------
+# ANSWERS---------------ANSWERS---------------ANSWERS---------------ANSWERS-----------
 
 get '/users/:id/question/:question_id/answer' do
 	if current_user.id.to_s == params[:id]
 		@question_id = params[:question_id]
 		@current_question = Question.current_question(params[:question_id])
-		@all_answers = Answer.all.where(question_id: params[:question_id])
+		
+		@all_answers = Answer.left_outer_joins(:votes).group("answers.id").order('count(votes.id) desc').where(question_id: params[:question_id])
+		# @all_answers = Answer.all.where(question_id: params[:question_id])
+		
 		erb :"answers/question_to_answer"
 	else
 		p "Something went wrong users/:id/answernew"
@@ -174,5 +177,28 @@ post '/users/:id/answer/:answer_id/delete' do
 		redirect "/users/#{current_user.id}"
 	else
 		p "Nothing to delete."
+	end
+end
+
+# VOTE---------------VOTE---------------VOTE---------------VOTE---------------VOTE---------------
+
+# post'/question/:question_id/answer/:answer_id/vote' do
+# 	if logged_in?
+# 		Vote.add_answer_vote(params[:answer_id], current_user.id)
+# 		redirect back
+# 		# redirect "/users/#{current_user.id}/question/#{params[:question_id]}/answer"
+# 	else
+# 		p "Invalid Entry. Try Again."
+# 	end
+# end
+
+post'/question/:question_id/answer/:answer_id/vote/:index' do
+	if logged_in?
+		Vote.add_answer_vote(params[:answer_id], current_user.id)
+		count = Answer.includes(:votes).all.find_by_id(params[:answer_id]).votes.count
+		{votecount: count, index:params[:index]}.to_json
+
+	else
+		p "Invalid Entry. Try Again."
 	end
 end

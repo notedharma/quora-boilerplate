@@ -1,7 +1,13 @@
 <h2><%= @current_question %></h2>
 
 <% @all_answers.each_with_index do |answer, index| %>
-		<p><%= "#{answer.user.name} wrote: #{answer.answer}" %></p>
+		<p><%= "#{answer.user.name} wrote: #{answer.answer}" %></p>Votes: <span class = "vote-count<%= index%>"><%= answer.votes.count%></span>
+
+<form class = "vote_for_answer" method="post" action="/question/<%= @question_id%>/answer/<%= answer.id %>/vote/<%= index%>">
+		<button  type ="submit" name ="vote_for_answer" value ="vote" >Vote</button>
+		</form>
+		<br>
+
 <% end %>
 
 
@@ -15,4 +21,35 @@
 
 
 
+<!-- JavaScript_______________JavaScript_______________JavaScript_______________JavaScript_______________-->
+<script type="text/javascript">
 
+
+
+$(".vote_for_answer").submit(function(e) {
+	e.preventDefault()
+	console.log(this)
+	link = this.action
+	// console.log(this.method)
+	
+$.ajax({
+  url: link,
+  method: "post",
+  success: function(data) {
+  	var json = JSON.parse(data)
+ 	console.log(json.votecount);
+ 	console.log(json.index);
+  	$(`.vote-count${json.index}`).html(json.votecount)
+
+  },
+  error: function(error) {
+    console.log(error);
+	}
+  })
+});
+
+
+
+
+</script>
+<!-- JavaScript_______________JavaScript_______________JavaScript_______________JavaScript_______________-->
